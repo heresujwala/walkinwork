@@ -50,7 +50,6 @@
       }
       input,
       button {
-        width: 100%;
         padding: 15px;
         font-size: 1rem;
         margin: 10px 0;
@@ -58,6 +57,7 @@
         border: none;
       }
       input {
+        width: 100%;
         background: #333;
         color: white;
       }
@@ -84,6 +84,57 @@
         padding: 10px;
         border-radius: 5px;
         margin: 5px 0;
+      }
+      /* How to Play Modal Styles */
+      .how-to-play-button {
+        background: #f39c12;
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 10px 20px;
+        margin: 30px auto;
+        display: block;
+        width: fit-content;
+        transition: background 0.3s;
+      }
+      .how-to-play-button:hover {
+        background: #d35400;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .modal-content {
+        background-color: #1e1e1e;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #f39c12;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 10px;
+        position: relative;
+        color: #fff;
+      }
+      .close {
+        color: #f39c12;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close:hover {
+        color: #fff;
       }
     </style>
   </head>
@@ -114,7 +165,7 @@
           placeholder="Player 2 Secret Number (4 unique digits)"
         />
 
-        <button onclick="startGame()">Start Game</button>
+        <button onclick="startGame()" style="width: 100%">Start Game</button>
       </div>
 
       <div id="game" class="hidden">
@@ -126,19 +177,47 @@
           maxlength="4"
           placeholder="Enter your guess"
         />
-        <button onclick="submitGuess()">Submit Guess</button>
+        <button onclick="submitGuess()" style="width: 100%">
+          Submit Guess
+        </button>
         <p class="result" id="resultDisplay"></p>
         <div id="history" class="result"></div>
       </div>
     </div>
 
+    <!-- How to Play Button -->
+    <button class="how-to-play-button" onclick="openModal()">
+      How to Play
+    </button>
+
+    <!-- Modal -->
+    <div id="howToPlayModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>How to Play</h2>
+        <p>
+          This is a two-player game where each player chooses a 4-digit number
+          with unique digits.
+        </p>
+        <ul>
+          <li>Players take turns guessing the other player's secret number.</li>
+          <li>
+            Each guess returns the number of <strong>Bulls</strong> (correct
+            digit and position) and <strong>Cows</strong> (correct digit, wrong
+            position).
+          </li>
+          <li>The first player to get 4 Bulls wins!</li>
+        </ul>
+      </div>
+    </div>
+
     <script>
-      let p1Secret = "";
-      let p2Secret = "";
-      let player1 = "Player 1";
-      let player2 = "Player 2";
-      let currentPlayer = 1;
-      let gameOver = false;
+      let p1Secret = "",
+        p2Secret = "",
+        player1 = "Player 1",
+        player2 = "Player 2",
+        currentPlayer = 1,
+        gameOver = false;
       const history = [];
 
       function startGame() {
@@ -223,6 +302,22 @@
         }
         return { cows, bulls };
       }
+
+      function openModal() {
+        document.getElementById("howToPlayModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("howToPlayModal").style.display = "none";
+      }
+
+      // Optional: Close modal on outside click
+      window.onclick = function (event) {
+        const modal = document.getElementById("howToPlayModal");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
     </script>
   </body>
 </html>
