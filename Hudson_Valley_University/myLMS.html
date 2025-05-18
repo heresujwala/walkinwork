@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hudson Valley University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="text-gray-800 font-sans">
+    <!-- Header with logo and nav -->
+    <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <img
+            src="assets/logo.jpeg"
+            alt="Hudson Valley University"
+            class="h-10"
+          />
+          <span class="text-xl font-bold text-green-900"
+            >Hudson Valley University</span
+          >
+        </div>
+        <nav class="space-x-6">
+          <a href="#about" class="text-green-800 hover:underline">About</a>
+          <a href="#academics" class="text-green-800 hover:underline"
+            >Academics</a
+          >
+          <a href="#contact" class="text-green-800 hover:underline">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero section -->
+    <div
+      class="bg-cover bg-center h-screen flex items-center justify-center relative"
+      style="
+        background-image: url('assets/hudson_valley_bg.jpg');
+        margin-top: 72px;
+      "
+    >
+      <div
+        class="bg-black bg-opacity-60 absolute w-full h-full top-0 left-0"
+      ></div>
+      <div class="relative z-10 text-white text-center max-w-2xl">
+        <h1 class="text-5xl font-bold mb-4">
+          Welcome to Hudson Valley University
+        </h1>
+        <p class="text-xl mb-6">
+          A home for innovation, technology, and lifelong learning.
+        </p>
+        <a
+          href="#about"
+          class="bg-green-600 hover:bg-green-500 px-6 py-2 rounded"
+          >Learn More</a
+        >
+      </div>
+    </div>
+
+    <!-- About section -->
+    <section id="about" class="py-16 px-6 bg-white text-center">
+      <h2 class="text-3xl font-bold text-green-900 mb-4">About Us</h2>
+      <p class="max-w-3xl mx-auto text-gray-700">
+        Hudson Valley University provides transformative education rooted in
+        real-world applications, with a strong emphasis on innovation,
+        diversity, and student success.
+      </p>
+    </section>
+
+    <!-- Academics -->
+    <section id="academics" class="bg-gray-100 py-16 px-6">
+      <h2 class="text-3xl font-bold text-green-900 text-center mb-10">
+        Academics
+      </h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+      >
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold text-green-800">Computer Science</h3>
+          <p class="mt-2 text-gray-600">
+            Programming, systems design, and application development.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold text-green-800">Data Science & ML</h3>
+          <p class="mt-2 text-gray-600">
+            Learn AI, statistics, and real-world data analysis.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold text-green-800">Cybersecurity</h3>
+          <p class="mt-2 text-gray-600">
+            Master threat analysis and system protection.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold text-green-800">IT Management</h3>
+          <p class="mt-2 text-gray-600">
+            Manage IT infrastructure and services effectively.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-bold text-green-800">Cloud Computing</h3>
+          <p class="mt-2 text-gray-600">
+            Build scalable cloud-based systems using AWS, Azure, GCP.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 px-6 bg-white text-center">
+      <h2 class="text-3xl font-bold text-green-900 mb-6">Contact Us</h2>
+      <form class="max-w-xl mx-auto space-y-4">
+        <input
+          type="text"
+          placeholder="Your Name"
+          class="w-full p-3 border border-gray-300 rounded"
+        />
+        <input
+          type="email"
+          placeholder="Your Email"
+          class="w-full p-3 border border-gray-300 rounded"
+        />
+        <textarea
+          placeholder="Your Message"
+          class="w-full p-3 border border-gray-300 rounded h-32"
+        ></textarea>
+        <button
+          type="submit"
+          class="bg-green-900 text-white px-6 py-2 rounded hover:bg-green-800"
+        >
+          Send
+        </button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-900 text-white text-center p-4">
+      &copy; 2025 Hudson Valley University. All rights reserved.
+    </footer>
+  </body>
+</html>
