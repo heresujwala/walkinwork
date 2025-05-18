@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cows and Bulls - 2 Player</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Orbitron", sans-serif;
+        background: #111;
+        color: #fff;
+      }
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("cowvsbull.jpg") no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+      }
+      .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.5rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .container {
+        background: #1e1e1e;
+        border-radius: 12px;
+        padding: 40px;
+        margin: -50px auto 50px;
+        max-width: 900px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+      h2 {
+        color: #f39c12;
+        text-align: center;
+      }
+      input,
+      button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: none;
+      }
+      input {
+        background: #333;
+        color: white;
+      }
+      button {
+        background: #f39c12;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #d35400;
+      }
+      .hidden {
+        display: none;
+      }
+      .result,
+      .playerInfo {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      #history div {
+        background: #222;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Cows and Bulls</h1>
+      <p>
+        Enter your names and secret numbers to play the ultimate guessing game
+        between two players!
+      </p>
+    </div>
+
+    <div class="container">
+      <div id="setup">
+        <h2>Player 1 Setup</h2>
+        <input type="text" id="player1Name" placeholder="Player 1 Name" />
+        <input
+          type="password"
+          id="p1Secret"
+          placeholder="Player 1 Secret Number (4 unique digits)"
+        />
+
+        <h2>Player 2 Setup</h2>
+        <input type="text" id="player2Name" placeholder="Player 2 Name" />
+        <input
+          type="password"
+          id="p2Secret"
+          placeholder="Player 2 Secret Number (4 unique digits)"
+        />
+
+        <button onclick="startGame()">Start Game</button>
+      </div>
+
+      <div id="game" class="hidden">
+        <h2 id="turnHeader"></h2>
+        <p><span id="currentPlayerName"></span>'s Guess:</p>
+        <input
+          type="text"
+          id="guessInput"
+          maxlength="4"
+          placeholder="Enter your guess"
+        />
+        <button onclick="submitGuess()">Submit Guess</button>
+        <p class="result" id="resultDisplay"></p>
+        <div id="history" class="result"></div>
+      </div>
+    </div>
+
+    <script>
+      let p1Secret = "";
+      let p2Secret = "";
+      let player1 = "Player 1";
+      let player2 = "Player 2";
+      let currentPlayer = 1;
+      let gameOver = false;
+      const history = [];
+
+      function startGame() {
+        const p1 = document.getElementById("p1Secret").value;
+        const p2 = document.getElementById("p2Secret").value;
+        const name1 = document.getElementById("player1Name").value.trim();
+        const name2 = document.getElementById("player2Name").value.trim();
+
+        if (!isValidNumber(p1) || !isValidNumber(p2)) {
+          alert("Please enter valid 4-digit numbers with unique digits.");
+          return;
+        }
+        if (!name1 || !name2) {
+          alert("Please enter both player names.");
+          return;
+        }
+
+        player1 = name1;
+        player2 = name2;
+        p1Secret = p1;
+        p2Secret = p2;
+
+        document.getElementById("setup").classList.add("hidden");
+        document.getElementById("game").classList.remove("hidden");
+
+        updateTurnDisplay();
+      }
+
+      function isValidNumber(num) {
+        return /^\d{4}$/.test(num) && new Set(num).size === 4;
+      }
+
+      function updateTurnDisplay() {
+        const playerName = currentPlayer === 1 ? player1 : player2;
+        document.getElementById(
+          "turnHeader"
+        ).innerText = `${playerName}'s Turn`;
+        document.getElementById("currentPlayerName").innerText = playerName;
+      }
+
+      function submitGuess() {
+        if (gameOver) return;
+        const guess = document.getElementById("guessInput").value;
+        if (!isValidNumber(guess)) {
+          alert("Enter a 4-digit number with unique digits.");
+          return;
+        }
+
+        const secret = currentPlayer === 1 ? p2Secret : p1Secret;
+        const playerName = currentPlayer === 1 ? player1 : player2;
+        const { cows, bulls } = calculateCowsAndBulls(secret, guess);
+
+        const resultText = `${playerName} guessed ${guess}: ${bulls} Bulls, ${cows} Cows`;
+        history.push(resultText);
+        document.getElementById("resultDisplay").innerText = resultText;
+        document.getElementById("history").innerHTML = history
+          .map((h) => `<div>${h}</div>`)
+          .join("");
+
+        if (bulls === 4) {
+          document.getElementById(
+            "turnHeader"
+          ).innerText = `${playerName} Wins! 🎉`;
+          gameOver = true;
+          return;
+        }
+
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        document.getElementById("guessInput").value = "";
+        updateTurnDisplay();
+      }
+
+      function calculateCowsAndBulls(secret, guess) {
+        let bulls = 0,
+          cows = 0;
+        for (let i = 0; i < 4; i++) {
+          if (guess[i] === secret[i]) {
+            bulls++;
+          } else if (secret.includes(guess[i])) {
+            cows++;
+          }
+        }
+        return { cows, bulls };
+      }
+    </script>
+  </body>
+</html>
