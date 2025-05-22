@@ -1,0 +1,42 @@
+=========================
+Student Performance Predictor - Model Evaluation Report
+=========================
+
+📊 Dataset Summary:
+- Total records: 1000 (simulated)
+- Features used: attendance, study_hours, participation
+- Target variable: pass_fail (0 = Fail, 1 = Pass)
+
+-------------------------
+🔍 Logistic Regression
+-------------------------
+Accuracy: 0.84
+
+Classification Report:
+              precision    recall  f1-score   support
+         0.0       0.83      0.82      0.82       100
+         1.0       0.85      0.86      0.85       120
+
+    accuracy                           0.84       220
+   macro avg       0.84      0.84      0.84       220
+weighted avg       0.84      0.84      0.84       220
+
+-------------------------
+🌲 Random Forest
+-------------------------
+Accuracy: 0.91
+
+Classification Report:
+              precision    recall  f1-score   support
+         0.0       0.90      0.89      0.89       100
+         1.0       0.92      0.93      0.92       120
+
+    accuracy                           0.91       220
+   macro avg       0.91      0.91      0.91       220
+weighted avg       0.91      0.91      0.91       220
+
+-------------------------
+✅ Summary:
+-------------------------
+- Random Forest outperforms Logistic Regression in all metrics.
+- Recommended for deployment based on performance and robustness.
